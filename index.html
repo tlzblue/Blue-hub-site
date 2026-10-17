@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Hub | Loader</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #0a1120; /* Deep blue-dark background */
+            color: #f0f6ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Neon Glow Utility */
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(20, 115, 255, 0.6), 0 0 20px rgba(20, 115, 255, 0.4);
+        }
+
+        /* Entry Screen Gateway */
+        #entry-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0a1120;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .gateway-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #f0f6ff;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .gateway-title span {
+            color: #1473ff; /* Brand neon blue color */
+        }
+
+        .enter-btn {
+            background: transparent;
+            color: #1473ff;
+            border: 2px solid #1473ff;
+            padding: 14px 45px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(20, 115, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .enter-btn:hover {
+            background-color: #1473ff;
+            color: #f0f6ff;
+            box-shadow: 0 0 25px rgba(20, 115, 255, 0.6), 0 0 10px rgba(20, 115, 255, 0.4);
+            transform: scale(1.03);
+        }
+
+        /* Interface Dashboard Window */
+        #main-content {
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+            width: 90%;
+            max-width: 580px;
+            background-color: #111d32; /* Core frame panel color */
+            border: 1.5px solid #1473ff;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(20, 115, 255, 0.1);
+            text-align: center;
+        }
+
+        .hub-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .brand-logo {
+            background-color: #1473ff;
+            color: #f0f6ff;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.6rem;
+            font-weight: 900;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(20, 115, 255, 0.5);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f0f6ff;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #87afeb;
+            margin-top: -20px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Interactive Code Block Container */
+        .code-wrapper {
+            background-color: #0a1120;
+            border: 1px solid #1a2d4a;
+            border-radius: 8px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .code-wrapper:hover {
+            border-color: #1473ff;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #00ffcc; /* Clean matrix-neon value contrast */
+            white-space: nowrap;
+            overflow-x: auto;
+            text-align: left;
+            margin-right: 15px;
+            width: 100%;
+        }
+
+        code::-webkit-scrollbar {
+            height: 4px;
+        }
+        code::-webkit-scrollbar-thumb {
+            background: #111d32;
+            border-radius: 2px;
+        }
+
+        .copy-action-icon {
+            color: #8f9cae;
+            font-size: 1.25rem;
+            transition: color 0.2s, transform 0.1s;
+            flex-shrink: 0;
+        }
+
+        .code-wrapper:hover .copy-action-icon {
+            color: #1473ff;
+        }
+
+        /* Toast Popup Alert */
+        .toast-alert {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #1473ff;
+            color: #f0f6ff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 5px 15px rgba(20, 115, 255, 0.3);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            opacity: 0;
+            z-index: 100;
+        }
+
+        .toast-alert.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Access Gateway Screen -->
+    <div id="entry-screen">
+        <div class="gateway-title neon-glow">Blue <span>Hub</span></div>
+        <button class="enter-btn" onclick="initializeEntry()">Click to enter...</button>
+    </div>
+
+    <!-- Active Interface Window -->
+    <div id="main-content">
+        <div class="hub-header">
+            <div class="brand-logo">B</div>
+            <h1 class="neon-glow">Blue Hub</h1>
+        </div>
+        <div class="subtitle">Brookhaven Edition</div>
+        
+        <!-- Interactive Copy Trigger Structure -->
+        <div class="code-wrapper" onclick="executeCopyAction()" title="Click code block to copy">
+            <code id="loadstring-payload">loadstring(game:HttpGet("https://raw.githubusercontent.com/tlzblue/blue-hub/refs/heads/main/main.lua"))()</code>
+            <i class="fa-regular fa-copy copy-action-icon" id="status-icon"></i>
+        </div>
+    </div>
+
+    <!-- Feedback Notification Banner -->
+    <div id="alert-toast" class="toast-alert">Script copied to clipboard!</div>
+
+    <script>
+        function initializeEntry() {
+            const entryScreen = document.getElementById('entry-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            // Dismiss access block overlay UI
+            entryScreen.style.opacity = '0';
+            entryScreen.style.visibility = 'hidden';
+            
+            // Present main panel workspace layout container
+            mainContent.style.opacity = '1';
+            mainContent.style.transform = 'scale(1)';
+
+            // Trigger silent execution load clip target automatically upon interface entrance sequence
+            setTimeout(executeCopyAction, 150);
+        }
+
+        function executeCopyAction() {
+            const textStringValue = document.getElementById('loadstring-payload').innerText;
+            const interactiveIcon = document.getElementById('status-icon');
+            const alertNotification = document.getElementById('alert-toast');
+
+            navigator.clipboard.writeText(textStringValue).then(() => {
+                // Update feedback icons interface values array representation 
+                interactiveIcon.className = 'fa-solid fa-check copy-action-icon';
+                interactiveIcon.style.color = '#00ffcc';
+
+                // Display tracking confirmation notice 
+                alertNotification.classList.add('visible');
+
+                // Revert runtime application system variable definitions
+                setTimeout(() => {
+                    interactiveIcon.className = 'fa-regular fa-copy copy-action-icon';
+                    interactiveIcon.style.color = '';
+                    alertNotification.classList.remove('visible');
+                }, 2200);
+            }).catch(error => {
+                console.error('System execution error writing clip targets: ', error);
+            });
+        }
+    </script>
+</body>
+</html>
