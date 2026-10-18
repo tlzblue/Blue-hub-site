@@ -15,7 +15,7 @@
         }
 
         body {
-            background-color: #0a1120; /* Deep blue-dark background */
+            background-color: #0a1120;
             color: #f0f6ff;
             display: flex;
             justify-content: center;
@@ -24,7 +24,6 @@
             overflow: hidden;
         }
 
-        /* Neon Glow Utility */
         .neon-glow {
             text-shadow: 0 0 10px rgba(20, 115, 255, 0.6), 0 0 20px rgba(20, 115, 255, 0.4);
         }
@@ -54,7 +53,7 @@
         }
 
         .gateway-title span {
-            color: #1473ff; /* Brand neon blue color */
+            color: #1473ff;
         }
 
         .enter-btn {
@@ -75,7 +74,7 @@
         .enter-btn:hover {
             background-color: #1473ff;
             color: #f0f6ff;
-            box-shadow: 0 0 25px rgba(20, 115, 255, 0.6), 0 0 10px rgba(20, 115, 255, 0.4);
+            box-shadow: 0 0 25px rgba(20, 115, 255, 0.6);
             transform: scale(1.03);
         }
 
@@ -86,11 +85,11 @@
             transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
             width: 90%;
             max-width: 580px;
-            background-color: #111d32; /* Core frame panel color */
+            background-color: #111d32;
             border: 1.5px solid #1473ff;
             border-radius: 14px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(20, 115, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
 
@@ -99,7 +98,7 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 5px;
         }
 
         .brand-logo {
@@ -113,70 +112,93 @@
             font-size: 1.6rem;
             font-weight: 900;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(20, 115, 255, 0.5);
         }
 
         h1 {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #f0f6ff;
-            letter-spacing: 0.5px;
         }
 
         .subtitle {
             font-size: 0.85rem;
             color: #87afeb;
-            margin-top: -20px;
             margin-bottom: 25px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
 
-        /* Interactive Code Block Container */
-        .code-wrapper {
+        .section-label {
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #87afeb;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Elements Containers */
+        .box-container {
             background-color: #0a1120;
             border: 1px solid #1a2d4a;
             border-radius: 8px;
-            padding: 16px 20px;
+            padding: 14px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .code-wrapper:hover {
-            border-color: #1473ff;
+            margin-bottom: 20px;
         }
 
         code {
             font-family: 'Courier New', Courier, monospace;
             font-size: 0.9rem;
-            color: #00ffcc; /* Clean matrix-neon value contrast */
+            color: #00ffcc;
             white-space: nowrap;
             overflow-x: auto;
             text-align: left;
-            margin-right: 15px;
             width: 100%;
         }
 
-        code::-webkit-scrollbar {
-            height: 4px;
-        }
-        code::-webkit-scrollbar-thumb {
-            background: #111d32;
-            border-radius: 2px;
-        }
+        code::-webkit-scrollbar { height: 4px; }
+        code::-webkit-scrollbar-thumb { background: #111d32; }
 
-        .copy-action-icon {
+        .action-btn {
+            background: none;
+            border: none;
             color: #8f9cae;
             font-size: 1.25rem;
-            transition: color 0.2s, transform 0.1s;
+            cursor: pointer;
             flex-shrink: 0;
+            margin-left: 10px;
+            transition: color 0.2s;
         }
 
-        .code-wrapper:hover .copy-action-icon {
-            color: #1473ff;
+        .action-btn:hover { color: #1473ff; }
+
+        .gen-panel-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .gen-display {
+            flex-grow: 1;
+            margin-bottom: 0;
+        }
+
+        .gen-trigger-btn {
+            background-color: #1473ff;
+            color: #f0f6ff;
+            border: none;
+            border-radius: 8px;
+            padding: 0 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .gen-trigger-btn:hover {
+            background-color: #0056cc;
         }
 
         /* Toast Popup Alert */
@@ -190,10 +212,8 @@
             padding: 12px 30px;
             border-radius: 25px;
             font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: 0 5px 15px rgba(20, 115, 255, 0.3);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
             opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
             z-index: 100;
         }
 
@@ -205,68 +225,81 @@
 </head>
 <body>
 
-    <!-- Access Gateway Screen -->
     <div id="entry-screen">
         <div class="gateway-title neon-glow">Blue <span>Hub</span></div>
         <button class="enter-btn" onclick="initializeEntry()">Click to enter...</button>
     </div>
 
-    <!-- Active Interface Window -->
     <div id="main-content">
         <div class="hub-header">
             <div class="brand-logo">B</div>
             <h1 class="neon-glow">Blue Hub</h1>
         </div>
-        <div class="subtitle">Brookhaven Edition</div>
+        <div class="subtitle">Brookhaven Edition (Delta)</div>
         
-        <!-- Interactive Copy Trigger Structure -->
-        <div class="code-wrapper" onclick="executeCopyAction()" title="Click code block to copy">
+        <!-- Script Section -->
+        <div class="section-label">Executor Script</div>
+        <div class="box-container">
             <code id="loadstring-payload">loadstring(game:HttpGet("https://raw.githubusercontent.com/tlzblue/blue-hub/refs/heads/main/main.lua"))()</code>
-            <i class="fa-regular fa-copy copy-action-icon" id="status-icon"></i>
+            <button class="action-btn" onclick="copyText('loadstring-payload', 'Script copied!')"><i class="fa-regular fa-copy"></i></button>
+        </div>
+
+        <!-- Key Generation Section -->
+        <div class="section-label">Access Key Generator (Valid for 24h)</div>
+        <div class="gen-panel-wrapper">
+            <div class="box-container gen-display">
+                <code id="key-display">Click Gen Key...</code>
+                <button class="action-btn" onclick="copyText('key-display', 'Key copied!')"><i class="fa-regular fa-copy"></i></button>
+            </div>
+            <button class="gen-trigger-btn" onclick="generateSecureHubKey()">Gen Key</button>
         </div>
     </div>
 
-    <!-- Feedback Notification Banner -->
-    <div id="alert-toast" class="toast-alert">Script copied to clipboard!</div>
+    <div id="alert-toast" class="toast-alert">Copied to clipboard!</div>
 
     <script>
         function initializeEntry() {
-            const entryScreen = document.getElementById('entry-screen');
+            document.getElementById('entry-screen').style.opacity = '0';
+            document.getElementById('entry-screen').style.visibility = 'hidden';
+            
             const mainContent = document.getElementById('main-content');
-            
-            // Dismiss access block overlay UI
-            entryScreen.style.opacity = '0';
-            entryScreen.style.visibility = 'hidden';
-            
-            // Present main panel workspace layout container
             mainContent.style.opacity = '1';
             mainContent.style.transform = 'scale(1)';
-
-            // Trigger silent execution load clip target automatically upon interface entrance sequence
-            setTimeout(executeCopyAction, 150);
+            
+            copyText('loadstring-payload', 'Script copied automatically!');
         }
 
-        function executeCopyAction() {
-            const textStringValue = document.getElementById('loadstring-payload').innerText;
-            const interactiveIcon = document.getElementById('status-icon');
-            const alertNotification = document.getElementById('alert-toast');
+        // 24 Hour Expiration Key System Generator
+        function generateSecureHubKey() {
+            const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let randomSequence = '';
+            
+            // Generate 6 completely random characters
+            for (let i = 0; i < 6; i++) {
+                randomSequence += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            
+            // Calculate current Unix days factor (Time / 86400 seconds in a day)
+            const currentDayValue = Math.floor(Date.now() / 86400000);
+            
+            // Convert day number into a custom Base36 string segment to obscure it
+            const encryptedTimeValue = currentDayValue.toString(36).toUpperCase();
+            
+            // Combine elements to structure a valid system key string 
+            const preValidatedKey = `Blue-${randomSequence}-${encryptedTimeValue}`;
+            
+            document.getElementById('key-display').innerText = preValidatedKey;
+        }
 
-            navigator.clipboard.writeText(textStringValue).then(() => {
-                // Update feedback icons interface values array representation 
-                interactiveIcon.className = 'fa-solid fa-check copy-action-icon';
-                interactiveIcon.style.color = '#00ffcc';
-
-                // Display tracking confirmation notice 
-                alertNotification.classList.add('visible');
-
-                // Revert runtime application system variable definitions
-                setTimeout(() => {
-                    interactiveIcon.className = 'fa-regular fa-copy copy-action-icon';
-                    interactiveIcon.style.color = '';
-                    alertNotification.classList.remove('visible');
-                }, 2200);
-            }).catch(error => {
-                console.error('System execution error writing clip targets: ', error);
+        function copyText(elementId, alertMsg) {
+            const target = document.getElementById(elementId);
+            if(target.innerText.includes("Click Gen Key")) return;
+            
+            navigator.clipboard.writeText(target.innerText).then(() => {
+                const toast = document.getElementById('alert-toast');
+                toast.innerText = alertMsg;
+                toast.classList.add('visible');
+                setTimeout(() => toast.classList.remove('visible'), 2000);
             });
         }
     </script>
