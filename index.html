@@ -235,7 +235,7 @@
             <div class="brand-logo">B</div>
             <h1 class="neon-glow">Blue Hub</h1>
         </div>
-        <div class="subtitle">Brookhaven Edition (Delta)</div>
+        <div class="subtitle">Brookhaven Edition</div>
         
         <!-- Script Section -->
         <div class="section-label">Executor Script</div>
@@ -245,7 +245,7 @@
         </div>
 
         <!-- Key Generation Section -->
-        <div class="section-label">Access Key Generator (Valid for 24h)</div>
+        <div class="section-label">Access Key Generator</div>
         <div class="gen-panel-wrapper">
             <div class="box-container gen-display">
                 <code id="key-display">Click Gen Key...</code>
@@ -269,26 +269,20 @@
             copyText('loadstring-payload', 'Script copied automatically!');
         }
 
-        // 24 Hour Expiration Key System Generator
+        // Key System Generator Logic
         function generateSecureHubKey() {
             const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
             let randomSequence = '';
             
-            // Generate 6 completely random characters
-            for (let i = 0; i < 6; i++) {
+            // Generate a random 8-character code string suffix
+            for (let i = 0; i < 8; i++) {
                 randomSequence += characters.charAt(Math.floor(Math.random() * characters.length));
             }
             
-            // Calculate current Unix days factor (Time / 86400 seconds in a day)
-            const currentDayValue = Math.floor(Date.now() / 86400000);
+            // Build the validated key structural requirement string
+            const generatedKey = `Blue-${randomSequence}`;
             
-            // Convert day number into a custom Base36 string segment to obscure it
-            const encryptedTimeValue = currentDayValue.toString(36).toUpperCase();
-            
-            // Combine elements to structure a valid system key string 
-            const preValidatedKey = `Blue-${randomSequence}-${encryptedTimeValue}`;
-            
-            document.getElementById('key-display').innerText = preValidatedKey;
+            document.getElementById('key-display').innerText = generatedKey;
         }
 
         function copyText(elementId, alertMsg) {
